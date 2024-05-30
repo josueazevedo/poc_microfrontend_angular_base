@@ -1,0 +1,32 @@
+.c-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1020px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      button {
+        display: none;
+      }
+    }
+  }
+
+  &__menu {
+    display: none;
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
+  }
+}
