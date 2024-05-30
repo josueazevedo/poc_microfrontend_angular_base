@@ -2,7 +2,7 @@ import { isDevMode } from '@angular/core';
 import { ElementProps } from '../core/services/mfe-injector/mfe-injector.service';
 
 export const MFE_CONFIG = {
-  basePath: '/poc_microfrontend_angular_base',
+  basePath: isDevMode() ? '' : '/poc_microfrontend_angular_base',
 };
 
 export const MFE_1: ElementProps = {
