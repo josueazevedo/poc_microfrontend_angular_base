@@ -1,5 +1,5 @@
 import { isDevMode } from '@angular/core';
-import { ElementProps } from '../shared/services/mfe-injector/mfe-injector.service';
+import { ElementProps } from '../core/services/mfe-injector/mfe-injector.service';
 
 export const MFE_1: ElementProps = {
   name: 'mfe1',

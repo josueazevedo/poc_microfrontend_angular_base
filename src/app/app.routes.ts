@@ -1,6 +1,6 @@
 import { MFE_1, MFE_2, MFE_3 } from './config/mfe.config';
-import { MfeInjectorComponent } from './shared/components/mfe-injector/mfe-injector.component';
 import { Routes } from '@angular/router';
+import { MfeInjectorComponent } from './core/components/mfe-injector/mfe-injector.component';
 
 export const routes: Routes = [
   {

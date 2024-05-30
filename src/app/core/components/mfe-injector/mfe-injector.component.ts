@@ -5,12 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import {
   ElementProps,
   MfeInjectorService,
 } from '../../services/mfe-injector/mfe-injector.service';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mfe-injector',
