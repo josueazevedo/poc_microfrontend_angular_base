@@ -4,6 +4,11 @@ import { MfeInjectorComponent } from './core/components/mfe-injector/mfe-injecto
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: () =>
+      import('./features/home/home.routes').then((m) => m.homeRoutes),
+  },
+  {
     path: 'mfe1',
     component: MfeInjectorComponent,
     data: {

@@ -1,0 +1,11 @@
+@import "./../assets/css/color.scss";
+
+main {
+  height: calc(100svh - 56px);
+  width: 100svw;
+  background-color: $background-color;
+
+  @media screen and (min-width: 600px) {
+    height: calc(100svh - 64px);
+  }
+}
