@@ -12,6 +12,7 @@ import {
   ElementProps,
   MfeInjectorService,
 } from '../../services/mfe-injector/mfe-injector.service';
+import { MFE_CONFIG } from '../../../config/mfe.config';
 
 @Component({
   selector: 'app-mfe-injector',
@@ -42,11 +43,10 @@ export class MfeInjectorComponent implements OnInit, OnDestroy {
 
   private onRouterChange(): void {
     this.route.params.subscribe((params: any) => {
-      console.log('onRouterChange', params?.id, window.location.pathname);
       document.dispatchEvent(
         new CustomEvent(`${this.elementProps.name}:onpopstate`, {
           detail: {
-            path: window.location.pathname,
+            path: this.getBasePath(),
           },
         })
       );
@@ -56,8 +56,12 @@ export class MfeInjectorComponent implements OnInit, OnDestroy {
   private loadElement(): void {
     this.elementProps = this.route.snapshot.data['injector'];
     this.injectorService.inject(this.box, this.elementProps);
-    this.injectorService.addAttributes('path', window.location.pathname);
+    this.injectorService.addAttributes('path', this.getBasePath());
     this.loadListener(this.elementProps.tag);
+  }
+
+  private getBasePath(): string {
+    return window.location.pathname.replace(MFE_CONFIG.basePath, '');
   }
 
   private loadListener(tag: string): void {
