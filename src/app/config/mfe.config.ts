@@ -12,3 +12,11 @@ export const MFE_1: ElementProps = {
     ? 'http://localhost:4201'
     : 'https://josueazevedo.github.io/poc_microfrontend_angular_mfe1',
 };
+
+export const MFE_2: ElementProps = {
+  name: 'mfe2',
+  tag: 'mfe-two',
+  url: isDevMode()
+    ? 'http://localhost:4202'
+    : 'https://josueazevedo.github.io/poc_microfrontend_angular_mfe2',
+};
