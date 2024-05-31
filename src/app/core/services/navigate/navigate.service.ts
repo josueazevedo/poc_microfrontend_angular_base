@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MfeInjectorService } from '../mfe-injector/mfe-injector.service';
+import { CustomEventsService } from '../custom-events/custom-events.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavigateService {
-  constructor(private router: Router, private inj: MfeInjectorService) {
+  constructor(
+    private router: Router,
+    private eventsService: CustomEventsService
+  ) {
     this.registreNavigateEvent();
   }
 
   private registreNavigateEvent(): void {
-    document.addEventListener('external_router', (e) => {
+    this.eventsService.listen('external_router', (e) => {
       const path = (e as CustomEvent)?.detail?.path;
       this.router.navigate([path]);
     });

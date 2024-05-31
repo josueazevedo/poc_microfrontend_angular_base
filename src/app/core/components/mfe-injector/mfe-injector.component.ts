@@ -13,6 +13,8 @@ import {
   MfeInjectorService,
 } from '../../services/mfe-injector/mfe-injector.service';
 import { MFE_CONFIG } from '../../../config/mfe.config';
+import { CustomEventsService } from '../../services/custom-events/custom-events.service';
+import { LoadingService } from '../../services/loading/loading.service';
 
 @Component({
   selector: 'app-mfe-injector',
@@ -25,11 +27,14 @@ export class MfeInjectorComponent implements OnInit, OnDestroy {
   @ViewChild('box', { static: true })
   private box!: ElementRef;
   private elementProps!: ElementProps;
+
   private subs = new Subscription();
 
   constructor(
     private injectorService: MfeInjectorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private events: CustomEventsService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -42,18 +47,15 @@ export class MfeInjectorComponent implements OnInit, OnDestroy {
   }
 
   private onRouterChange(): void {
-    this.route.params.subscribe((params: any) => {
-      document.dispatchEvent(
-        new CustomEvent(`${this.elementProps.name}:onpopstate`, {
-          detail: {
-            path: this.getBasePath(),
-          },
-        })
-      );
+    this.route.params.subscribe((_) => {
+      this.events.dispatch(`${this.elementProps.name}:onpopstate`, {
+        path: this.getBasePath(),
+      });
     });
   }
 
   private loadElement(): void {
+    this.loadingService.show();
     this.elementProps = this.route.snapshot.data['injector'];
     this.injectorService.inject(this.box, this.elementProps);
     this.injectorService.addAttributes('path', this.getBasePath());
@@ -66,7 +68,7 @@ export class MfeInjectorComponent implements OnInit, OnDestroy {
 
   private loadListener(tag: string): void {
     customElements.whenDefined(tag).then(() => {
-      console.log('element loaded');
+      this.loadingService.hide();
     });
   }
 }
